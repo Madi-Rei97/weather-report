@@ -55,13 +55,69 @@ document.addEventListener('DOMContentLoaded', registerEventHandlers);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //________________________________________________________________________________
 // wave 3
-const cityNameInput = document.getElementById('cityNameInput');
-const cityNameResetButton = document.getElementById('cityNameReset');
 
-cityNameInput.addEventListener('input', )
-
+const CityInputInRealTime = () => {
+  let cityNameInput = document.getElementById('cityNameInput').value;
+  document.getElementById('headerCityName').innerHTML = 'which City?! ' + cityNameInput + ' it is!!!';
+}
 
 
 
@@ -129,3 +185,4 @@ cityNameInput.addEventListener('input', )
 //________________________________________________________________________________
 // wave 6
 
+const cityNameResetButton = document.getElementById('cityNameReset');
