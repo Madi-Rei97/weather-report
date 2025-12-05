@@ -2,19 +2,32 @@
 //________________________________________________________________________________
 // wave 2
 
-
-
-const increaseTemp = () => {
-  let tempValue = document.getElementById('tempValue');
-  const tempContainer = document.createElement('span');
-  tempValue.textContent = tempValue;
-  tempContainer.appendChild(tempValue);
-  tempValue += 1;
+const state = {
+  tempValue: 50,
 };
 
-const registerEventHandlers = () => {
-  const increaseTempControlButton = document.getElementById('increaseTempControl');
-  increaseTempControlButton.addEventListener('click', increaseTemp);
+const increaseTemp = (event) => {
+  console.log('in increaseTemp:', event);
+  state.tempValue += 1;
+  const tempValueContainer = document.querySelector('#tempValue');
+  tempValueContainer.textContent = state.tempValue;
+};
+
+const decreaseTemp = (event) => {
+  console.log('in decreaseTemp:', event);
+  state.tempValue -= 1;
+  const tempValueContainer = document.querySelector('#tempValue');
+  tempValueContainer.textContent = state.tempValue;
+};
+
+const registerEventHandlers = (event) => {
+  console.log('in registerEventHandlers:', event);
+
+  const increaseTempButton = document.querySelector('#increaseTempControl');
+  increaseTempButton.addEventListener('click', increaseTemp);
+
+  const decreaseTempButton = document.querySelector('#decreaseTempControl');
+  decreaseTempButton.addEventListener('click', decreaseTemp);
 };
 
 document.addEventListener('DOMContentLoaded', registerEventHandlers);
