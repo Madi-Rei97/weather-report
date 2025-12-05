@@ -76,9 +76,6 @@ const weatherGarden = () => {
 
 
 
-
-
-
 //________________________________________________________________________________
 // wave 3
 
@@ -124,41 +121,59 @@ cityNameInput.addEventListener('input', CityInputInRealTime);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //________________________________________________________________________________
 // wave 5
 
+const skySelect = document.getElementById('skySelect');
+const skyDisplay = document.getElementById('skyDisplay');
 
+const skiesEach = {
+  Sunny:	"☁️ ☁️ ☁️ ☀️ ☁️ ☁️",
+  Cloudy:	"☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️",
+  Rainy:	"🌧🌈🌧🌧💧🌧🌦🌧💧🌧🌧",
+  Snowy:	"❄️☃️❄️⛄❄️❄️☃️❄️⛄❄️☃️❄️"
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+skySelect.addEventListener('change', ()=>{
+  const oneSky = skySelect.value;
+  skyDisplay.textContent = skiesEach[oneSky];
+});
 
 
 //________________________________________________________________________________
 // wave 6
-
-
 
   const cityNameResetButton = document.getElementById('cityNameReset');
 
