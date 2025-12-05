@@ -157,17 +157,37 @@ const changeTempColor = () => {
 //________________________________________________________________________________
 // wave 3
 
+// const CityInputInRealTime = () => {
+//   let cityNameInput = document.getElementById('cityNameInput').value;
+//   document.getElementById('headerCityName').innerHTML = 'which City?! ' + cityNameInput + ' it is!!!';
+// }
+
+
+// document.addEventListener('DOMContentLoaded', () => {
+
+//   const CityInputInRealTime = () => {
+//     const cityNameInput = document.getElementById('cityNameInput');
+//     const headerCityName = document.getElementById('headerCityName');
+
+//     headerCityName.textContent = `Which City?! ${cityNameInput.value} it is!!! `;
+//   };
+
+//     const cityNameInput = document.getElementById('cityNameInput');
+//     cityNameInput.addEventListener('input', CityInputInRealTime);
+
+//     CityInputInRealTime();
+// });
+
+
 const CityInputInRealTime = () => {
-  let cityNameInput = document.getElementById('cityNameInput').value;
-  document.getElementById('headerCityName').innerHTML = 'which City?! ' + cityNameInput + ' it is!!!';
-}
+  const cityNameInput = document.getElementById('cityNameInput');
+  const headerCityName = document.getElementById('headerCityName');
 
+  headerCityName.textContent = `Which City?! ${cityNameInput.value} it is!!! `;
+};
 
-
-
-
-
-
+const cityNameInput = document.getElementById('cityNameInput');
+cityNameInput.addEventListener('input', CityInputInRealTime);
 
 
 //________________________________________________________________________________
@@ -228,4 +248,16 @@ const CityInputInRealTime = () => {
 //________________________________________________________________________________
 // wave 6
 
-const cityNameResetButton = document.getElementById('cityNameReset');
+
+
+
+
+
+// const cityNameReturnToDefault = () => {
+//   const cityNameResetButton = document.getElementById('cityNameReset').value;
+//   document.
+
+
+// }
+
+
