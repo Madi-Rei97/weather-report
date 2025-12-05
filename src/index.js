@@ -7,27 +7,23 @@ const state = {
   tempValue: 50,
 };
 
-const increaseTemp = (event) => {
-  console.log('in increaseTemp:', event);
-
+const increaseTemp = () => {
   state.tempValue += 1;
   const tempValueContainer = document.querySelector('#tempValue');
   tempValueContainer.textContent = state.tempValue;
   changeTempColor();
+  weatherGarden();
 };
 
-const decreaseTemp = (event) => {
-  console.log('in decreaseTemp:', event);
-
+const decreaseTemp = () => {
   state.tempValue -= 1;
   const tempValueContainer = document.querySelector('#tempValue');
   tempValueContainer.textContent = state.tempValue;
   changeTempColor();
+  weatherGarden();
 };
 
-const registerEventHandlers = (event) => {
-  console.log('in registerEventHandlers:', event);
-
+const registerEventHandlers = () => {
   const increaseTempButton = document.querySelector('#increaseTempControl');
   increaseTempButton.addEventListener('click', increaseTemp);
 
@@ -62,7 +58,21 @@ const changeTempColor = () => {
   }
 };
 
+// Change Weather Garden as the temp changes:
+const weatherGarden = () => {
+  const landscapeValueContainer = document.querySelector('#landscape');
+  const temp = state.tempValue;
 
+  if (temp >= 80) {
+    landscapeValueContainer.textContent = '🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂';
+  } else if (temp >= 70) {
+    landscapeValueContainer.textContent = '🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷';
+  } else if (temp >= 60) {
+    landscapeValueContainer.textContent = '🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃';
+  } else {
+    landscapeValueContainer.textContent = '🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲';
+  }
+};
 
 
 
