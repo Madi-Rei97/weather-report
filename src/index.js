@@ -79,91 +79,6 @@ const weatherGarden = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //________________________________________________________________________________
 // wave 3
 
@@ -171,23 +86,6 @@ const weatherGarden = () => {
 //   let cityNameInput = document.getElementById('cityNameInput').value;
 //   document.getElementById('headerCityName').innerHTML = 'which City?! ' + cityNameInput + ' it is!!!';
 // }
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-
-//   const CityInputInRealTime = () => {
-//     const cityNameInput = document.getElementById('cityNameInput');
-//     const headerCityName = document.getElementById('headerCityName');
-
-//     headerCityName.textContent = `Which City?! ${cityNameInput.value} it is!!! `;
-//   };
-
-//     const cityNameInput = document.getElementById('cityNameInput');
-//     cityNameInput.addEventListener('input', CityInputInRealTime);
-
-//     CityInputInRealTime();
-// });
-
 
 const CityInputInRealTime = () => {
   const cityNameInput = document.getElementById('cityNameInput');
@@ -197,6 +95,8 @@ const CityInputInRealTime = () => {
 };
 
 const cityNameInput = document.getElementById('cityNameInput');
+
+CityInputInRealTime();
 cityNameInput.addEventListener('input', CityInputInRealTime);
 
 
@@ -260,14 +160,12 @@ cityNameInput.addEventListener('input', CityInputInRealTime);
 
 
 
+  const cityNameResetButton = document.getElementById('cityNameReset');
 
+  cityNameResetButton.addEventListener('click', () => {
+    // cityNameINput is declared on wave 3 
+    cityNameInput.value = cityNameInput.defaultValue;
 
+    CityInputInRealTime();
 
-// const cityNameReturnToDefault = () => {
-//   const cityNameResetButton = document.getElementById('cityNameReset').value;
-//   document.
-
-
-// }
-
-
+  });
