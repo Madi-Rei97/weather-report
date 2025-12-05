@@ -2,22 +2,27 @@
 //________________________________________________________________________________
 // wave 2
 
+// Increase/decrease temp with arrows:
 const state = {
   tempValue: 50,
 };
 
 const increaseTemp = (event) => {
   console.log('in increaseTemp:', event);
+
   state.tempValue += 1;
   const tempValueContainer = document.querySelector('#tempValue');
   tempValueContainer.textContent = state.tempValue;
+  changeTempColor();
 };
 
 const decreaseTemp = (event) => {
   console.log('in decreaseTemp:', event);
+
   state.tempValue -= 1;
   const tempValueContainer = document.querySelector('#tempValue');
   tempValueContainer.textContent = state.tempValue;
+  changeTempColor();
 };
 
 const registerEventHandlers = (event) => {
@@ -28,9 +33,34 @@ const registerEventHandlers = (event) => {
 
   const decreaseTempButton = document.querySelector('#decreaseTempControl');
   decreaseTempButton.addEventListener('click', decreaseTemp);
+
 };
 
 document.addEventListener('DOMContentLoaded', registerEventHandlers);
+
+// Change temp color as the temp changes:
+const changeTempColor = () => {
+  const tempValueContainer = document.querySelector('#tempValue');
+  const temp = state.tempValue;
+
+  tempValueContainer.classList.remove(
+    'red', 'orange', 'yellow', 'yellow-green', 'green', 'teal'
+  );
+
+  if (temp >= 90) {
+    tempValueContainer.classList.add('red');
+  } else if (temp >= 80) {
+    tempValueContainer.classList.add('orange');
+  } else if (temp >= 70) {
+    tempValueContainer.classList.add('yellow');
+  } else if (temp >= 60) {
+    tempValueContainer.classList.add('yellow-green');
+  } else if (temp >= 50) {
+    tempValueContainer.classList.add('green');
+  } else {
+    tempValueContainer.classList.add('teal');
+  }
+};
 
 
 
