@@ -79,11 +79,6 @@ const weatherGarden = () => {
 //________________________________________________________________________________
 // wave 3
 
-// const CityInputInRealTime = () => {
-//   let cityNameInput = document.getElementById('cityNameInput').value;
-//   document.getElementById('headerCityName').innerHTML = 'which City?! ' + cityNameInput + ' it is!!!';
-// }
-
 const CityInputInRealTime = () => {
   const cityNameInput = document.getElementById('cityNameInput');
   const headerCityName = document.getElementById('headerCityName');
@@ -100,56 +95,77 @@ cityNameInput.addEventListener('input', CityInputInRealTime);
 //________________________________________________________________________________
 // wave 4
 
+const findLatitudeAndLongitude = (city) => {
+let latitude, longitude;
+
+  // Return the promise chain created by the axios call
+return axios.get('http://127.0.0.1:5000/location',
+    {
+    params: {
+        q: city,
+        format: 'json'
+    }
+    })
+    .then((response) => {
+    latitude = response.data[0].lat;
+    longitude = response.data[0].lon;
+
+      return {latitude, longitude}; // Return the data we want to pass on
+    })
+    .catch((error) => {
+    console.log('error in findLatitudeAndLongitude!', error);
+    });
+};
 
 
 
+const findWeatherByLatAndLon = (lat,lon) => {
+
+  // Return the promise chain created by the axios call
+return axios.get('http://127.0.0.1:5000/weather',
+    {
+    params: {
+        lat: lat,
+        lon: lon,
+        format: 'json'
+    }
+    })
+    .then((response) => {
+    return response.data;
+
+    })
+    .catch((error) => {
+        console.log('error in getting weather!', error);
+    });
+};
 
 
+const getRealTimeTemp = () => {
+    const city = document.getElementById('cityNameInput').value;
+    
+    findLatitudeAndLongitude(city)
+        .then((coords) => {
+            return findWeatherByLatAndLon(coords.latitude, coords.longitude);
+        })
+        .then((weatherData) => {
+            const kevin = weatherData.main.temp;
+            const fahrenheit = Math.round((kevin- 273.15) * (9 / 5) + 32);
 
+            state.tempValue = fahrenheit;
+            document.getElementById('tempValue').textContent = fahrenheit;
 
+            changeTempColor();
+            weatherGarden();
 
+        })
+        .catch((error) => {
+            console.log('error in getting weather!', error);
+        });
 
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const tempButton = document.getElementById('currentTempButton');
+tempButton.addEventListener('click', getRealTimeTemp);
 
 
 
