@@ -1,7 +1,3 @@
-
-//________________________________________________________________________________
-// wave 2
-
 // Increase/decrease temp with arrows:
 const state = {
   tempValue: 50,
@@ -46,8 +42,8 @@ const registerEventHandlers = () => {
   CityInputInRealTime();
 
   // Get current location temp (Wave 4)
-  const currentTempButton = document.getElementById('currentTempButton');
-  currentTempButton.addEventListener('click', getLocationFromQuery);
+  const tempButton = document.getElementById('currentTempButton');
+  tempButton.addEventListener('click', getRealTimeTemp);
 
   // Change sky (Wave 5)
   const skySelect = document.getElementById('skySelect');
@@ -96,86 +92,6 @@ const weatherGarden = () => {
   }
 };
 
-
-
-//________________________________________________________________________________
-// wave 3
-
-// const CityInputInRealTime = () => {
-//   let cityNameInput = document.getElementById('cityNameInput').value;
-//   document.getElementById('headerCityName').innerHTML = 'which City?! ' + cityNameInput + ' it is!!!';
-// }
-//____________________________________________________
-// const CityInputInRealTime = () => {
-//   const cityNameInput = document.getElementById('cityNameInput');
-//   const headerCityName = document.getElementById('headerCityName');
-
-//   headerCityName.textContent = `Which City?! ${cityNameInput.value} it is!!! `;
-// };
-
-// const cityNameInput = document.getElementById('cityNameInput');
-
-// CityInputInRealTime();
-// cityNameInput.addEventListener('input', CityInputInRealTime);
-
-
-//________________________________________________________________________________
-// wave 3 - Madi's Version
-
-const CityInputInRealTime = () => {
-  const cityNameInput = document.getElementById('cityNameInput');
-  const headerCityName = document.getElementById('headerCityName');
-
-  headerCityName.textContent = cityNameInput.value;
-};
-// event listener moved to registerEventHandlers()
-
-//________________________________________________________________________________
-// wave 4 - Madi's Version
-
-const getLocationFromQuery = async () => {
-  try {
-    const query = document.getElementById('cityNameInput').value;
-    const { latitude, longitude } = await findLatitudeAndLongitude(query);
-    const temperature = await getTemp(latitude, longitude);
-
-    state.tempValue = temperature;
-    document.querySelector('#tempValue').textContent = temperature;
-
-    changeTempColor();
-    weatherGarden();
-
-    return temperature;
-
-  } catch (error) {
-    console.log('Error getting real-time temp:', error);
-  }
-};
-
-const findLatitudeAndLongitude = async (query) => {
-  const response = await axios.get('/location', {
-    params: { q: query },
-  });
-
-  return {
-    latitude: response.data[0].lat,
-    longitude: response.data[0].lon,
-  };
-};
-
-const getTemp = async (latitude, longitude) => {
-  const response = await axios.get('/weather', {
-    params: { lat: latitude, lon: longitude },
-  });
-
-  const kelvin = response.data.main.temp;
-  const fahrenheit = Math.round((kelvin - 273.15) * 1.8 + 32);
-  return fahrenheit;
-};
-
-//________________________________________________________________________________
-// wave 5 - Madi's Version
-
 const updateSky = () => {
   const skySelect = document.getElementById('skySelect');
   const skyDisplay = document.getElementById('sky');
@@ -197,74 +113,71 @@ const updateSky = () => {
   gardenContent.classList.add(selected.toLowerCase());
 };
 
+// Change city input in real time
+const CityInputInRealTime = () => {
+  const cityNameInput = document.getElementById('cityNameInput');
+  const headerCityName = document.getElementById('headerCityName');
 
+  headerCityName.textContent = cityNameInput.value;
+};
 
+// Wave 4
+const findLatitudeAndLongitude = (city) => {
+  let latitude, longitude;
 
+  return axios.get('http://127.0.0.1:5000/location', {
+    params: {
+      q: city,
+      format: 'json'
+    }
+  })
+    .then((response) => {
+      latitude = response.data[0].lat;
+      longitude = response.data[0].lon;
 
+      return {latitude, longitude};
+    })
+    .catch((error) => {
+      console.log('error in findLatitudeAndLongitude!', error);
+    });
+};
 
+const findWeatherByLatAndLon = (lat,lon) => {
+  return axios.get('http://127.0.0.1:5000/weather', {
+    params: {
+      lat: lat,
+      lon: lon,
+      format: 'json'
+    }
+  })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('error in getting weather!', error);
+    });
+};
 
+const getRealTimeTemp = () => {
+  const city = document.getElementById('cityNameInput').value;
 
+  findLatitudeAndLongitude(city)
+    .then((coords) => {
+      return findWeatherByLatAndLon(coords.latitude, coords.longitude);
+    })
+    .then((weatherData) => {
+      const kevin = weatherData.main.temp;
+      const fahrenheit = Math.round((kevin- 273.15) * (9 / 5) + 32);
 
+      state.tempValue = fahrenheit;
+      document.getElementById('tempValue').textContent = fahrenheit;
 
+      changeTempColor();
+      weatherGarden();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//________________________________________________________________________________
-// wave 5
-
-// const skySelect = document.getElementById('skySelect');
-// const skyDisplay = document.getElementById('skyDisplay');
-
-// const skiesEach = {
-//   Sunny:	"☁️ ☁️ ☁️ ☀️ ☁️ ☁️",
-//   Cloudy:	"☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️",
-//   Rainy:	"🌧🌈🌧🌧💧🌧🌦🌧💧🌧🌧",
-//   Snowy:	"❄️☃️❄️⛄❄️❄️☃️❄️⛄❄️☃️❄️"
-// }
-
-// skySelect.addEventListener('change', ()=>{
-//   const oneSky = skySelect.value;
-//   skyDisplay.textContent = skiesEach[oneSky];
-// });
-
-
-//________________________________________________________________________________
-// wave 6
-
-  // const cityNameResetButton = document.getElementById('cityNameReset');
-
-  // cityNameResetButton.addEventListener('click', () => {
-  //   // cityNameINput is declared on wave 3 
-  //   cityNameInput.value = cityNameInput.defaultValue;
-
-  //   CityInputInRealTime();
-
-  // });
+      return weatherData;
+    })
+    .catch((error) => {
+      console.log('error in getting weather!', error);
+    });
+};
